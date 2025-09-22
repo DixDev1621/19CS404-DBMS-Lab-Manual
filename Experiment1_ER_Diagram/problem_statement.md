@@ -1,4 +1,3 @@
-<img width="912" height="936" alt="Key Features - visual selection (2)" src="https://github.com/user-attachments/assets/8c6134a3-e5ad-43a6-91b0-2a29c6223ad3" /># ER Diagram Workshop – Submission Template
 
 ## Objective
 To understand and apply ER modeling concepts by creating ER diagrams for real-world applications.
