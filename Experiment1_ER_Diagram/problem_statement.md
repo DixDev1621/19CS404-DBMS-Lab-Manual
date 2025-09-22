@@ -1,4 +1,4 @@
-# ER Diagram Workshop – Submission Template
+<img width="912" height="936" alt="Key Features - visual selection (2)" src="https://github.com/user-attachments/assets/8c6134a3-e5ad-43a6-91b0-2a29c6223ad3" /># ER Diagram Workshop – Submission Template
 
 ## Objective
 To understand and apply ER modeling concepts by creating ER diagrams for real-world applications.
@@ -22,8 +22,8 @@ FlexiFit Gym wants a database to manage its members, trainers, and fitness progr
 - Payments tracked for memberships and sessions.
 
 ### ER Diagram:
-*Paste or attach your diagram here*  
-![ER Diagram](er_diagram_fitness.png)
+*Paste or attach your diagram here*
+
 
 ### Entities and Attributes
 
@@ -106,32 +106,40 @@ A popular restaurant wants to manage reservations, orders, and billing.
 - Waiters assigned to serve reservations.
 
 ### ER Diagram:
-*Paste or attach your diagram here*  
-![ER Diagram](er_diagram_restaurant.png)
+[DBMS-workshop.pdf](https://github.com/user-attachments/files/22460365/DBMS-workshop.pdf)
 
 ### Entities and Attributes
 
-| Entity | Attributes (PK, FK) | Notes |
-|--------|--------------------|-------|
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
+| Entity          | Attributes (PK, FK)                                                               | Notes                                                |
+| --------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **Customer**    | CustomerID (PK), Name, Contact                                                    | A customer may make multiple reservations            |
+| **Reservation** | ReservationID (PK), Date, Time, NumGuests, FK CustomerID, FK TableID, FK WaiterID | Reservation links customer, table, and waiter        |
+| **Table**       | TableID (PK), Capacity                                                            | Each reservation is assigned a table                 |
+| **Waiter**      | WaiterID (PK), Name                                                               | Waiters serve multiple reservations                  |
+| **Order**       | OrderID (PK), DateTime, FK ReservationID                                          | Orders are tied to reservations                      |
+| **Dish**        | DishID (PK), Name, Category, Price                                                | Dishes belong to categories (starter, main, dessert) |
+| **Order\_Dish** | FK OrderID, FK DishID, Quantity                                                   | Resolves M\:N relationship between orders and dishes |
+| **Bill**        | BillID (PK), Amount, ServiceCharge, Date, FK ReservationID                        | One bill generated per reservation                   |
+
 
 ### Relationships and Constraints
 
-| Relationship | Cardinality | Participation | Notes |
-|--------------|------------|---------------|-------|
-|              |            |               |       |
-|              |            |               |       |
-|              |            |               |       |
+| Relationship         | Cardinality | Participation             | Notes                                          |
+| -------------------- | ----------- | ------------------------- | ---------------------------------------------- |
+| Customer–Reservation | 1\:N        | Total on Reservation side | A customer can make multiple reservations      |
+| Reservation–Table    | 1:1         | Total                     | A reservation is assigned to exactly one table |
+| Reservation–Waiter   | 1\:N        | Partial                   | A waiter can serve many reservations           |
+| Reservation–Order    | 1\:N        | Total                     | Each reservation may have multiple orders      |
+| Order–Dish           | M\:N        | Total                     | An order can include many dishes               |
+| Reservation–Bill     | 1:1         | Total                     | One bill generated per reservation             |
+
 
 ### Assumptions
-- 
-- 
-- 
 
+Walk-in customers are recorded as reservations with immediate Date/Time.
+Each reservation corresponds to exactly one bill.
+A table can only be assigned to one reservation per time slot.
+Waiters can serve multiple reservations, but each reservation has only one waiter assigned.
 ---
 
 ## Instructions for Students
