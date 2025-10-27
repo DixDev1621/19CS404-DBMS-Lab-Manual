@@ -8,153 +8,342 @@ To study and implement aggregate functions, GROUP BY, and HAVING clause with sui
 ### Aggregate Functions
 These perform calculations on a set of values and return a single value.
 
-- **MIN()** – Smallest value  
-- **MAX()** – Largest value  
-- **COUNT()** – Number of rows  
-- **SUM()** – Total of values  
-- **AVG()** – Average of values
+- *MIN()* – Smallest value  
+- *MAX()* – Largest value  
+- *COUNT()* – Number of rows  
+- *SUM()* – Total of values  
+- *AVG()* – Average of values
 
-**Syntax:**
-```sql
+*Syntax:*
+sql
 SELECT AGG_FUNC(column_name) FROM table_name WHERE condition;
-```
+
 ### GROUP BY
 Groups records with the same values in specified columns.
-**Syntax:**
-```sql
+*Syntax:*
+sql
 SELECT column_name, AGG_FUNC(column_name)
 FROM table_name
 GROUP BY column_name;
-```
+
 ### HAVING
 Filters the grouped records based on aggregate conditions.
-**Syntax:**
-```sql
+*Syntax:*
+sql
 SELECT column_name, AGG_FUNC(column_name)
 FROM table_name
 GROUP BY column_name
 HAVING condition;
-```
 
-**Question 1**
+
+*Question 1*
 --
--- Paste Question 1 here
+-- How many male and female doctors are there in each medical specialty?
 
-```sql
--- Paste your SQL code below for Question 1
-```
+Sample table:Doctors Table
+For example:
 
-**Output:**
+Result
+Specialty          Gender    TotalDoctors
+-----------------  --------  --------------
+Cardiology         Male      1
+Dermatology        Male      1
+Gastroenterology   Female    4
+Gastroenterology   Male      1
+Pediatrics         Female    1
+Pediatrics         Male      2
+sql
+--select Specialty,Gender,count(*) as TotalDoctors
+from Doctors
+group by Specialty,Gender
+order by Specialty,Gender;
 
-![Output1](output.png)
 
-**Question 2**
+*Output:*
+
+![image](https://github.com/user-attachments/assets/ae1d7229-4085-4c29-8f73-88362a81eaa4)
+
+
+*Question 2*
 ---
--- Paste Question 2 here
+-- Write the SQL query that achieves the grouping of data by city, calculates the total income for each city, and includes only those cities where the total income sum is greater than 200,000.
 
-```sql
--- Paste your SQL code below for Question 2
-```
+Sample table: employee
+For example:
 
-**Output:**
+Result
+city        Income
+----------  ----------
+Alaska      450000
+Arizona     1000000
+California  5300000
+Florida     5350000
+Georgia     250000
+here
 
-![Output2](output.png)
+sql
+-- select city, sum(income) as Income from employee
+group by city having Income > 200000;
 
-**Question 3**
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/f8813709-bbe1-4c5c-9bd4-326159c3bb23)
+
+
+*Question 3*
 ---
--- Paste Question 3 here
+-- Write the SQL query that achieves the grouping of data by occupation, calculates the minimum work hours for each occupation, and excludes occupations where the minimum work hour is not greater than 8.
 
-```sql
--- Paste your SQL code below for Question 3
-```
+Sample table: employee1
 
-**Output:**
 
-![Output3](output.png)
 
-**Question 4**
+For example:
+
+Result
+occupation  MIN(workhour)
+----------  -------------
+Business    10
+Doctor      15
+Engineer    12
+Teacher     9
+
+
+sql
+-- select occupation,  AVG(workhour) from employee1
+group by occupation having AVG(workhour) between 10 and 12;
+
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/8f7a3725-509e-46fe-83d0-d03a321d1509)
+
+*Question 4*
 ---
--- Paste Question 4 here
+-- Write the SQL query that achieves the grouping of data by occupation, calculates the average work hours for each occupation, and includes only those occupations where the average work hour falls between 10 and 12.
 
-```sql
--- Paste your SQL code below for Question 4
-```
+Sample table: employee1
 
-**Output:**
 
-![Output4](output.png)
 
-**Question 5**
+For example:
+
+Result
+occupation  AVG(workhour)
+----------  -------------
+Business    10.0
+Engineer    12.0
+sql
+-- select occupation,  AVG(workhour) from employee1
+group by occupation having AVG(workhour) between 10 and 12;
+
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/ac44350e-e9ac-4329-af5f-90e8d4b051d6)
+
+
+*Question 5*
 ---
--- Paste Question 5 here
+-- Write a SQL query to find the average length of names for people living in Chennai?
 
-```sql
--- Paste your SQL code below for Question 5
-```
+Table: customer
 
-**Output:**
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT   
+city        TEXT
+email       TEXT
+phone       INTEGER
+For example:
 
-![Output5](output.png)
+Result
+avg_name_length
+---------------
+10.0
 
-**Question 6**
+
+sql
+-- select avg(length(name)) as avg_name_length from customer
+where city = 'Chennai';
+
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/405e9f2c-7a33-40cd-9750-f498c6c45f0e)
+
+
+*Question 6*
 ---
--- Paste Question 6 here
+--Write a SQL query to find the minimum purchase amount.
 
-```sql
--- Paste your SQL code below for Question 6
-```
+Sample table: orders
 
-**Output:**
+ord_no      purch_amt   ord_date    customer_id  salesman_id
 
-![Output6](output.png)
+----------  ----------  ----------  -----------  -----------
 
-**Question 7**
+70001       150.5       2012-10-05  3005         5002
+
+70009       270.65      2012-09-10  3001         5005
+
+70002       65.26       2012-10-05  3002         5001
+
+ 
+
+For example:
+
+Result
+MINIMUM
+----------
+65.26
+
+
+sql
+-- select min(purch_amt) as MINIMUM FROM orders
+order by MINIMUM ASC LIMIT 1;
+
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/82129e8a-582d-4b98-9958-5d65c7982e9e)
+
+
+*Question 7*
 ---
--- Paste Question 7 here
+--Write a SQL query to find the shortest email address in the customer table?
 
-```sql
--- Paste your SQL code below for Question 7
-```
+Table: customer
 
-**Output:**
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT   
+city        TEXT
+email       TEXT
+phone       INTEGER
+For example:
 
-![Output7](output.png)
+Result
+name        email           min_email_length
+----------  --------------  ----------------
+Ravi Kumar  ravi@gmail.com  14
 
-**Question 8**
+sql
+--select name,email, length(email) as min_email_length
+from customer
+order by length(email) asc
+limit 1;
+
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/1713e691-de01-49fb-92fc-699eed4ac570)
+
+
+*Question 8*
 ---
--- Paste Question 8 here
+-- Write a SQL query to find the Fruit with the lowest available quantity.
 
-```sql
--- Paste your SQL code below for Question 8
-```
+Note: Inventory attribute contains amount of fruits
 
-**Output:**
+Table: fruits
 
-![Output8](output.png)
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+unit        TEXT
+inventory   INTEGER
+price       REAL
+ 
 
-**Question 9**
+For example:
+
+Result
+fruit_name  lowest_quantity
+----------  ---------------
+Watermelon  15
+
+
+sql
+-- select name as fruit_name, inventory as lowest_quantity from fruits
+order by inventory asc limit 1;
+
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/dc745da4-f1b4-4a1e-9e89-526ebc701ed4)
+
+
+*Question 9*
 ---
--- Paste Question 9 here
+-- How many prescriptions were written in each frequency category (e.g., once daily, twice daily)?
 
-```sql
--- Paste your SQL code below for Question 9
-```
+Sample tablePrescriptions Table
 
-**Output:**
 
-![Output9](output.png)
 
-**Question 10**
+For example:
+
+Result
+Frequency      TotalPrescriptions
+-------------  ------------------
+Every 3 weeks  1
+Every 6 hours  1
+Once           1
+Once daily     4
+Once daily at  1
+Pending        1
+Twice daily    1
+
+sql
+--select Frequency,count(*) as TotalPrescriptions 
+from Prescriptions
+group by Frequency  
+order by Frequency ;
+
+
+*Output:*
+![image](https://github.com/user-attachments/assets/ccb2c14c-76a1-4fa1-b053-69db65a07ad9)
+
+
+*Question 10*
 ---
--- Paste Question 10 here
+--Write a SQL query that counts the number of unique salespeople. Return number of salespeople.
 
-```sql
--- Paste your SQL code below for Question 10
-```
+Sample table: orders
 
-**Output:**
+ord_no      purch_amt   ord_date    customer_id  salesman_id
 
-![Output10](output.png)
+----------  ----------  ----------  -----------  -----------
+
+70001       150.5       2012-10-05  3005         5002
+
+70009       270.65      2012-09-10  3001         5005
+
+70002       65.26       2012-10-05  3002         5001
+
+ 
+
+For example:
+
+Result
+COUNT
+----------
+6
+
+sql
+-- select count(distinct salesman_id) as COUNT
+from orders;
+
+
+*Output:*
+
+![image](https://github.com/user-attachments/assets/96f0dce0-25a8-4f91-bd89-2376a34a4011)
+
 
 
 ## RESULT
